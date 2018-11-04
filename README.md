@@ -1,2 +1,4 @@
 # CrypticOS
-CrypticOS custon operating system build from the ground up 
+A fully custom operating system that is being built from the ground up starting with
+the boot loader and then the kernal. 
+This project is being made with Assembly and C.
