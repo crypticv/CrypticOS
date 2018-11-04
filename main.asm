@@ -28,6 +28,7 @@ xor ax, ax
 int 0x13
 pop ax
 
+;print to the screen
 mov si, STR_0
 call printf
 
@@ -40,18 +41,19 @@ call printf
 mov si, STR_3
 call printf
 
-
+;start read disk function
 mov al, 1
 mov cl, 2
 call readDisk
 jmp test
 
+;hang system so it doesnt crash
 jmp $
 
 %include "printf.asm"
 %include "readDisk.asm"
 
-
+;string "variables"
 STR_0: db 'Welcome', 0x0a, 0x0d, 0
 STR_1: db 'To', 0x0a, 0x0d, 0
 STR_2: db 'The CrypticOS',0x0a, 0x0d, 0
