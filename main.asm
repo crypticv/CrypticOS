@@ -28,7 +28,7 @@ xor ax, ax
 int 0x13
 pop ax
 
-;print to the screen
+;print greeting to the screen
 mov si, STR_0
 call printf
 
@@ -44,29 +44,29 @@ call printf
 ;start read disk function
 mov al, 1
 mov cl, 2
+mov dx, [0x7c00 + 510]
 call readDisk
-jmp test
+
+call printh
 
 ;hang system so it doesnt crash
 jmp $
 
 %include "printf.asm"
 %include "readDisk.asm"
+%include "printh.asm"
 
 ;string "variables"
 STR_0: db 'Welcome', 0x0a, 0x0d, 0
 STR_1: db 'To', 0x0a, 0x0d, 0
 STR_2: db 'The CrypticOS',0x0a, 0x0d, 0
-STR_3: db 'Developed by CrypticV', 0
+STR_3: db 'Developed by CrypticV', 0x0a, 0x0d, 0
 DISK_ERR_MSG: db 'Error Loading Disk', 0x0a, 0x0d, 0
-TEST_STR: db 'You are in the second sector.', 0x0a, 0x0d, 0
 
-; padding and magic number
+
+; padding and magic number ( magic number is what tells the bios that this is a bootable program aka bootloader)
 times 510-($-$$) db 0
 dw 0xaa55
 
-test:
-  mov si, TEST_STR
-  call printf
 
 times 512 db 0
